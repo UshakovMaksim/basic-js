@@ -1,11 +1,11 @@
 module.exports = function repeater(str, options) {
+  str = '' + str;
+  const repeatTimes = 'repeatTimes' in options ? options.repeatTimes : 1;
+  const separator = 'separator' in options ? '' + options.separator : '+';
+  const addition = 'addition' in options ? '' + options.addition : '';
+  const additionRepeatTimes = 'additionRepeatTimes' in options ? options.additionRepeatTimes : 1;
+  const additionSeparator = 'additionSeparator' in options ? '' + options.additionSeparator : '|';
 
-  const addStr = Array.from({ length: options.additionRepeatTimes || 1 },
-    _ => options.addition || '')
-    .join(options.additionSeparator || '|');
-
-  return Array.from({ length: options.repeatTimes || 1 },
-    _ => str.toString() + addStr)
-    .join((options.separator || '+').toString()
-    );
+  const addStr = Array.from({ length: additionRepeatTimes }, _ => addition).join(additionSeparator);
+  return Array.from({ length: repeatTimes }, _ => str + addStr).join(separator);
 };
