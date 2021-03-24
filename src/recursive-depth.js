@@ -1,8 +1,11 @@
-const CustomError = require("../extensions/custom-error");
-
 module.exports = class DepthCalculator {
-  calculateDepth(/* arr */) {
-    throw new CustomError('Not implemented');
-    // remove line with error and write your code here
+  calculateDepth(arr) {
+    return Math.max(...
+      arr.reduce((acc, el) =>
+        Array.isArray(el) ?
+          acc.concat([1 + this.calculateDepth(el)])
+          : acc
+        , [1])
+    );
   }
 };
